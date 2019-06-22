@@ -1,0 +1,21 @@
+.main-panel>.content {
+    margin-top: 0px;
+    padding: 15px 15px;
+    min-height: calc(100vh - 123px);
+}
+
+.removed {
+    display: none;
+}
+
+.top_4 {
+    background-color: lightgreen;
+}
+
+.top_region {
+    background-color: lightblue;
+}
+
+.extra_region {
+    background-color: lightyellow;
+}

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Tokyo2020 Fencing Team Qualification</title> 
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<!-- Jquery scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<!-- Fonts and icons -->
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+	<!-- Material Kit CSS -->
+	<link href="assets/css/material-dashboard.min.css" rel="stylesheet" />
+	<!-- My CSS -->
+	<link href="assets/css/lorenzo.css" rel="stylesheet" />
+	<link href="assets/css/flag-icon.min.css" rel="stylesheet" />
+	
+</head>
+
+<body>
+	<div class="wrapper ">
+		<div class="sidebar" data-color="purple" data-background-color="white">
+			<div class="logo">
+				<div class="simple-text logo-mini">
+					<img src="assets/img/tokyo2020.png">
+					Road to Tokyo 2020
+				</div>
+			</div>
+			<div class="sidebar-wrapper">
+				<ul class="nav">
+					{% for gender in ['men', 'women'] %}
+					<h2 style="text-align: center;"> {{gender|capitalize}} </h2>
+					{% for weapon in ['foil', 'epee', 'sabre'] %}
+					<li class="nav-item {% if gender == 'men' and weapon == 'foil' %} active {% endif %}" value = "{{gender}}_{{weapon}}">
+						<a class="nav-link" href="#0">
+							<i class="material-icons">dashboard</i>
+							<p>{{weapon}}</p>
+						</a>
+					</li>
+					{% endfor %}
+					<hr>
+					{% endfor %}
+				</ul>
+
+				<footer class="footer">
+					<div class="container-fluid">
+						<div class="copyright">
+							&copy;
+							<script>
+								document.write(new Date().getFullYear())
+							</script>, Lorenzo Rossi. <br> Using
+							<a href="https://www.creative-tim.com" target="_blank">Creative Tim's</a> template.
+						</div>
+						<!-- your footer here -->
+					</div>
+				</footer>
+			</div>
+		</div>
+		<div class="main-panel">
+			<div class="content">
+				<div class="container-fluid">
+					<div class='row'>
+						<div class="col-lg-6 col-md-12">
+							{% for gender in ['men', 'women'] %}
+							{% for weapon in ['foil', 'epee', 'sabre'] %}
+							<div class="card {{gender}}_{{weapon}} {% if not(gender == 'men' and weapon == 'foil') %} removed {% endif %}">
+								<div class="card-header card-header-primary">
+									<h4 class="card-title ">Ranking</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table rankings">
+											<thead class=" text-primary">
+												<tr>
+													<th>Country</th>
+													<th>Region</th>
+													<th>Total Points</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for country, value in rankings[gender][weapon].items() %}
+												<tr>
+													<td><span class="flag-icon flag-icon-{{value['flag']|lower}}"></span> {{country}}</td>
+													<td>{{value['region']}}</td>
+													<td>{{value['total_points']}}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							{% endfor %}	
+							{% endfor %}
+						</div>
+						<div class="col-lg-6 col-md-12">
+							{% for gender in ['men', 'women'] %}
+							{% for weapon in ['foil', 'epee', 'sabre'] %}
+
+							<div class="card {{gender}}_{{weapon}} {% if not(gender == 'men' and weapon == 'foil') %} removed {% endif %}">
+								<div class="card-header card-header-primary">
+									<h4 class="card-title ">Completed Events</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead class=" text-primary">
+												<tr>
+													<th>Location</th>
+													<th>Date</th>
+													<th>Type</th>
+													<th>FIE Link</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for competition in completed_competitions %}
+												{% if competition['gender'] == gender and competition['weapon'] == weapon and competition['hasResults'] == 1 and competition['name'] != '2019 Summer Universiades' %}
+												<tr>
+													<td><span class="flag-icon flag-icon-{{competition['flag']|lower}}"></span> {{competition['location']}}</td>
+													<td>{{competition['endDate']}}</td>
+													<td>{{competition['name']}}</td>
+													<td><a href="https://fie.org/competitions/{{competition['season']}}/{{competition['competitionId']}}" target="_blank"><i class="material-icons">link</i></a></td>
+												</tr>
+												{% endif %}
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="card {{gender}}_{{weapon}} {% if not(gender == 'men' and weapon == 'foil') %} removed {% endif %}">
+								<div class="card-header card-header-primary">
+									<h4 class="card-title ">Upcoming Events</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead class=" text-primary">
+												<tr>
+													<th>Location</th>
+													<th>Date</th>
+													<th>Type</th>
+													<th>FIE Link</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for competition in upcoming_competitions %}
+												{% if competition['gender'] == gender and competition['weapon'] == weapon and competition['name'] != '2019 Summer Universiades' %}
+												<tr>
+													<td><span class="flag-icon flag-icon-{{competition['flag']|lower}}"></span> {{competition['location']}}</td>
+													<td>{{competition['endDate']}}</td>
+													<td>{{competition['name']}}</td>
+													<td><a href="https://fie.org/competitions/{{competition['season']}}/{{competition['competitionId']}}" target="_blank"><i class="material-icons">link</i></a></td>
+												</tr>
+												{% endif %}
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							{% endfor %}	
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="assets/js/update_sidebar.js"></script>
+<script src="assets/js/sortTable.js"></script>
+
+</html>
