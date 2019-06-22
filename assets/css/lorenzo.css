@@ -1,6 +1,6 @@
 .main-panel>.content {
     margin-top: 0px;
-    padding: 15px 15px;
+    padding: 15px 30px;
     min-height: calc(100vh - 123px);
 }
 
@@ -9,13 +9,17 @@
 }
 
 .top_4 {
-    background-color: lightgreen;
+    background-color: #4caf50;
 }
 
 .top_region {
-    background-color: lightblue;
+    background-color: #00bcd4;
 }
 
 .extra_region {
-    background-color: lightyellow;
+    background-color: #ff9800;
+}
+
+.sidebar {
+    background-color: white !important;
 }
