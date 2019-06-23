@@ -30,5 +30,5 @@ template = template.render(
 )
 
 # Write output html
-with open('index.html', 'w') as output_file:
-    output_file.write(template)
+with open('index.html', 'wb') as output_file:
+    output_file.write(template.encode('utf8', 'replace'))

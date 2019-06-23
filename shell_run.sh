@@ -1,3 +1,7 @@
 #!/bin/sh
-#venv/bin/python3 Data/DataGathering/main.py
-../venv/bin/python3 jinjify.py
+cd /home/pi/Tokyo/roadtotokyo.github.io
+#../venv/bin/python Data/DataGathering/main.py
+#../venv/bin/python jinjify.py
+git add .
+git commit -m 'Automated Daily Commit'
+git push
