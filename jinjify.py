@@ -16,8 +16,14 @@ with open('Data/upcoming.json') as json_file:
 # Clean competition names
 for c in completed_competitions:
     c['name'] = re.sub(r" par.*$", "", c['name'])
+    c['name'] = re.sub(r"monde", "Monde", c['name'])
+    if not any(ext in c['name'] for ext in ['Monde', 'Championnats']):
+        c['name'] = 'Coupe du Monde'
 for c in upcoming_competitions:
     c['name'] = re.sub(r" par.*$", "", c['name'])
+    c['name'] = re.sub(r"monde", "Monde", c['name'])
+    if not any(ext in c['name'] for ext in ['Monde', 'Championnats']):
+        c['name'] = 'Coupe du Monde'
 
 
 # Read and jinjify template
