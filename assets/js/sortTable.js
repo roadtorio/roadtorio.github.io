@@ -36,7 +36,7 @@ function colorRows(table) {
   var rows = table.rows;
   var regions = ['Asia', 'America', 'Europe', 'Africa'];
   var regions_completed = [0, 0, 0, 0];
-  for (var i = 1; i < 16; i++) {
+  for (var i = 1; i < 17; i++) {
     if (i <= 4) {
       rows[i].classList.add('top_4');  
     }
