@@ -53,7 +53,7 @@ def add_competition_to_ranking(competition, rankings, regions):
 	ranking_index = rankings[competition['gender']][competition['weapon']]
 	# For every participant update points
 	for team_result in results:
-		participant = team_result['fencer']['country']
+		participant = team_result['fencer']['country'].replace(', CHINA', '')
 		if participant in ranking_index:
 			ranking_index[participant]['total_points'] = ranking_index[participant]['total_points'] + team_result['points']
 		else:
